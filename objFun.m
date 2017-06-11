@@ -1,23 +1,16 @@
-% Compute the objective function
-sigma_w = 2.088;
-sigma_d = 0.361;
-beta = 1.462;
+% Objective function in Interior point method
+function F = objFun(x)
 
+generate_training_data;
+velocity_ID;
 
-
-% % at time = 0
-% fr_gap = dres.fr(2:T) - dres.fr(1:(T-1));
-% fr_gap = double(fr_gap);
-% 
-% v_train = (dres.pos(2:T,:) - dres.pos(1:(T-1),:)) ./ [fr_gap fr_gap]; % [num 2]; num = T-1
-
-
+t = 0.5;
 
 % for traning target #1 (total number: T )
 cur_ind = id_selected(2);   % index of current learning target in the ground truth
 % current frame number
-cur_fr = dres.fr(cur_ind)
-pi = dres.pos(cur_ind,:)
+cur_fr = dres.fr(cur_ind);
+pi = dres.pos(cur_ind,:);
 cur_vDesire = v_train(cur_ind,:);
 
 vi = v_train(cur_ind-1,:);
@@ -43,7 +36,7 @@ for ii = 2:length(ind_train)
     % compute pj
     pj = dres.pos(ind_temp,:);
     % comupte vj: current_vj = current position of j minus last position of j
-
+    
     vj = v_train(ind_temp-1,:);  % ind_temp-1 ?
     
     % angle
@@ -52,11 +45,11 @@ for ii = 2:length(ind_train)
         cos_phi = 0;
     end
     
-    %sigma_w: radius of interest
+    %x(1): radius of interest
     k_ij = pi - pj;
     norm_value = norm(k_ij,'fro');
-    w_rd = exp(-norm_value^2 / (2 * sigma_w^2));   % current distance weight
-    w_angle = ((1 + cos_phi) / 2)^beta;    % angular displacement weight
+    w_rd = exp(-norm_value^2 / (2 * x(1)^2));   % current distance weight
+    w_angle = ((1 + cos_phi) / 2)^x(3);    % angular displacement weight
     
     w_r = w_rd * w_angle;   % energy weight
     
@@ -65,9 +58,11 @@ for ii = 2:length(ind_train)
     dis = k_ij - sum(k_ij .* q_ij) * q_ij / (norm(q_ij)^2); % q_ij'  ???
     d_ij = (norm(dis))^2;
     
-    E_ij = exp(-(d_ij^2) / (2 * sigma_d^2));
+    E_ij = exp(-(d_ij^2) / (2 * x(2)^2));
     
     E = E + E_ij;
 end
-    
-    
+
+F = t*E - log(x(2)-0.1) - log(x(1));
+
+end

@@ -1,6 +1,8 @@
 % Examples
 %       FUN can be specified using @:
-         X = fminunc(@myfun,2)
+clear all;
+x0 = [2,0.3,1];
+         X = fminunc(@objFun,x0)
  
 %     where myfun is a MATLAB function such as:
  

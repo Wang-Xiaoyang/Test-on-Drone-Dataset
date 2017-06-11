@@ -17,9 +17,9 @@ dres = read_drone2dres(filename);
 
 ID = 0;
 
-id0 = find(dres.id == ID);
+id_selected = find(dres.id == ID);
 
-T = length(id0)/3;
+T = length(id_selected)/3;
 T = round(T)
 
 fr = dres.fr(1:T);  % frame index of the chosen target with ID = 0
@@ -30,5 +30,5 @@ for ii = 1:length(fr)
     fr_train = [fr_train;foi];
 end
 
-ind_train = unique(sort(fr_train)); % get the index (row index in the ground truth file) of training data
+ind_train = sort(fr_train); % get the index (row index in the ground truth file) of training data
 
