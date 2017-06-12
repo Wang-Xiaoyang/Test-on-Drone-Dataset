@@ -16,9 +16,9 @@ cur_vDesire = v_train(cur_ind,:);
 vi = v_train(cur_ind-1,:);
 
 % search all the target (regard of the ID and frame)
-E = [];
+E = zeros(1);
 
-for ii = 2:length(ind_train)
+for ii = length(ind_train)
     ind_temp = ind_train(ii);   % current index in the ground truth
     % extract the information of current target
     fr_temp = dres.fr(ind_temp);
@@ -36,7 +36,7 @@ for ii = 2:length(ind_train)
     % compute pj
     pj = dres.pos(ind_temp,:);
     % comupte vj: current_vj = current position of j minus last position of j
-    
+
     vj = v_train(ind_temp-1,:);  % ind_temp-1 ?
     
     % angle
@@ -45,23 +45,28 @@ for ii = 2:length(ind_train)
         cos_phi = 0;
     end
     
-    %x(1): radius of interest
+    %sigma_w: radius of interest
     k_ij = pi - pj;
     norm_value = norm(k_ij,'fro');
-    w_rd = exp(-norm_value^2 / (2 * x(1)^2));   % current distance weight
-    w_angle = ((1 + cos_phi) / 2)^x(3);    % angular displacement weight
+    w_rd = exp(-norm_value^2 / (2 * sigma_w^2));   % current distance weight
+    w_angle = ((1 + cos_phi) / 2)^beta;    % angular displacement weight
     
     w_r = w_rd * w_angle;   % energy weight
     
     % interation energy
     q_ij = cur_vDesire - vj;
-    dis = k_ij - sum(k_ij .* q_ij) * q_ij / (norm(q_ij)^2); % q_ij'  ???
+    dis = k_ij - sum(k_ij .* q_ij) * q_ij / (norm(q_ij)^2 + eps); % q_ij'  ???
     d_ij = (norm(dis))^2;
     
-    E_ij = exp(-(d_ij^2) / (2 * x(2)^2));
+    E_ij = exp(-(d_ij^2) / (2 * sigma_d^2));
+    
+    if E_ij ~= 0
+        break
+    end
     
     E = E + E_ij;
 end
+
 
 F = t*E - log(x(2)-0.1) - log(x(1));
 

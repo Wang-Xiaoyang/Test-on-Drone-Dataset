@@ -23,10 +23,10 @@ cur_vDesire = v_train(cur_ind,:);
 vi = v_train(cur_ind-1,:);
 
 % search all the target (regard of the ID and frame)
-E = zeros(1);
+E = [];
 
 % for ii = 2:length(ind_train)
-for ii = length(ind_train)
+for ii = 
     ind_temp = ind_train(ii);   % current index in the ground truth
     % extract the information of current target
     fr_temp = dres.fr(ind_temp);
@@ -63,16 +63,12 @@ for ii = length(ind_train)
     
     % interation energy
     q_ij = cur_vDesire - vj;
-    dis = k_ij - sum(k_ij .* q_ij) * q_ij / (norm(q_ij)^2 + eps); % q_ij'  ???
+    dis = k_ij - sum(k_ij .* q_ij) * q_ij / (norm(q_ij)^2); % q_ij'  ???
     d_ij = (norm(dis))^2;
     
     E_ij = exp(-(d_ij^2) / (2 * sigma_d^2));
     
-    if E_ij ~= 0
-        break
-    end
-    
     E = E + E_ij;
 end
-
-E
+    
+    

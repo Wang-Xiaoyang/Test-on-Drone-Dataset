@@ -20,7 +20,7 @@ ID = 0;
 id_selected = find(dres.id == ID);
 
 T = length(id_selected)/3;
-T = round(T)
+T = round(T);
 
 fr = dres.fr(1:T);  % frame index of the chosen target with ID = 0
 
