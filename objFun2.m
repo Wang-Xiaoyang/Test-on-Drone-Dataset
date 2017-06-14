@@ -1,5 +1,5 @@
 % Objective function in Interior point method
-function F = objFun(x,t,dres,id_selected,v_train,ind_train,ID,T)
+function F = objFun2(x,t,dres,id_selected,v_train,ind_train,ID,T)
 E = zeros(1,T);
 % for traning target #1 (total number: T )
 for kk = 1:(T-1)
@@ -104,7 +104,7 @@ for kk = 1:(T-1)
     E(kk) = E_temp;
 end
 
-F = t*sum(E) - log(x(2)-4.149) - log(x(1));
+F = sum(E) - t*(log(x(2)-4.149) - log(x(1)));
 % F = sum(E);
 
 % Es = sum(E);

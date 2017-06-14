@@ -1,4 +1,5 @@
 % compute velocity for all the target with different ID
+% desired velocity at time t = position t+1 - position t
 id_total = unique(dres.id);
 
 id_num = length(id_total);

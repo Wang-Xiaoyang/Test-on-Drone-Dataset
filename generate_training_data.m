@@ -11,6 +11,7 @@
 % % end
 
 filename = 'C:\Datasets\stanford_campus_dataset\annotations\bookstore\video0\annotations.txt';
+% filename = 'C:\Datasets\stanford_campus_dataset\ID_013.txt';
 dres = read_drone2dres(filename);
 
 % Take ID 0 for example:
@@ -19,8 +20,10 @@ ID = 0;
 
 id_selected = find(dres.id == ID);
 
-T = length(id_selected)/3;
-T = round(T)
+% T = length(id_selected)/5;
+% T = round(T)
+
+T = length(id_selected);
 
 fr = dres.fr(1:T);  % frame index of the chosen target with ID = 0
 

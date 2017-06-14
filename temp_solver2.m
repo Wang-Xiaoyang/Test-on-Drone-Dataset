@@ -1,5 +1,5 @@
 % solve the probelm with interior point method (barrier method)
-clear all;
+% clear all;
 
 generate_training_data;
 velocity_ID;
@@ -10,9 +10,9 @@ mu = 1.5;   % increase factor of t
 t_0 = 2;  % initialize of t
 
 % initialize of x
-x0 = [500,200,2];
+x0 = [5,5,1];
 
-t = 500;
+t = 5;
 
 options = optimoptions('fminunc','Algorithm','quasi-newton');
 
@@ -21,7 +21,7 @@ E = zeros(1,T);
 % iteration
 for ii = 1:50
     
-    f = @(x)objFun(x,t,dres,id_selected,v_train,ind_train,ID,T,E);
+    f = @(x)objFun2(x,t,dres,id_selected,v_train,ind_train,ID,T,E);
     
     [x,fval] = fminunc(f,x0,options);
     

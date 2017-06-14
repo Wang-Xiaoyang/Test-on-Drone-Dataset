@@ -28,4 +28,3 @@ end
 mesh(F_value);
 figure;
 mesh(Es_value)
-        ddd
