@@ -102,10 +102,15 @@ for kk = 1:(T-1)
     end
     
     E(kk) = E_temp;
+    
+%     % display the iteration process
+%     if rem(kk,500) == 0
+%         disp(['kk = ', num2str(kk)]);
+%     end
+    
 end
 
-F = t*sum(E) - log(x(2)-4.149) - log(x(1));
-% F = sum(E);
+% F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(1000 - x(2)) - log(1000 - x(1)) - log(20 - x(3));
+F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(x(3)) - log(2000 - x(1)) - log(1000 - x(2)) - log(3 - x(3));
 
-% Es = sum(E);
 end

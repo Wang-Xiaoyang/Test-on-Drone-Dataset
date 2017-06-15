@@ -9,7 +9,7 @@ generate_training_data;
 % get the v_train (desired velocity in each time step; not current velocity)
 velocity_ID_R;
 
-sigma_w = 5;
+sigma_w = 120;
 sigma_d = 5;
 beta = 1;
 
@@ -107,10 +107,6 @@ for kk = 1:(T-1)  % start from the second training target; for the first target,
                     Ess = 0;
                 end
                 
-%                 if isnan(Ess)
-%                     ii
-%                     break;
-%                 end
                 
                 E_temp = E_temp + Ess;
             end
@@ -120,7 +116,7 @@ for kk = 1:(T-1)  % start from the second training target; for the first target,
     E(kk) = E_temp;
 end
 
-F = t*sum(E) - log(x(2)-4.149) - log(x(1))
+F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(1000 - x(2)) - log(1000 - x(1))
 
 sum(E)
 % sigma_w = x(1)

@@ -10,32 +10,34 @@ mu = 10;   % increase factor of t
 % t_0 = 2;  % initialize of t
 
 % initialize of x
-x0 = [5,5,1];
+x0 = [500,150,1];
 
-t = 2;
+t = 5;
 
-options = optimoptions('fminunc','Algorithm','quasi-newton');
+options = optimoptions('fminunc','Display','iter','Algorithm','quasi-newton','FunctionTolerance',1e-2);
 
 % E = zeros(1,T);
+ii = 0;
 
 % iteration
-for ii = 1
+tic
+while 1/t >= tol
     
     f = @(x)objFun(x,t,dres,id_selected,v_train,ind_train,ID,T);
     
-    [x,fval] = fminunc(f,x0,options);
+    [x,fval,exitflag,output] = fminunc(f,x0,options);
+    
+    exitflag
     
     x0 = x;
     
-    if 1/t < tol
-        break;
-    end
+    t = mu * t
     
-    t = mu * t;
-        
+    ii = ii+1;
 end
+toc
 
+1/t
 ii
-
 x
 fval

@@ -20,8 +20,8 @@ ID = 0;
 
 id_selected = find(dres.id == ID);
 
-% T = length(id_selected)/5;
-% T = round(T)
+T = length(id_selected)/2;
+T = round(T)
 
 T = length(id_selected);
 
