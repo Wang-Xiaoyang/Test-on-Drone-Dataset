@@ -5,24 +5,25 @@ generate_training_data;
 velocity_ID;
 
 % set parameter
-tol = 1e-3;
+tol = 1e8;
 mu = 10;   % increase factor of t
 % t_0 = 2;  % initialize of t
 
 % initialize of x
-x0 = [500,150,1];
+x0 = [50,150,1];
 
-t = 5;
+t = 50;
 
-options = optimoptions('fminunc','Display','iter','Algorithm','quasi-newton','FunctionTolerance',1e-2);
+options = optimoptions('fminunc','Display','iter','Algorithm','quasi-newton','FunctionTolerance',1e-4);
 
 % E = zeros(1,T);
 ii = 0;
 
 % iteration
 tic
-while 1/t >= tol
+% while 1/t >= tol
     
+for ii = 1:5
     f = @(x)objFun(x,t,dres,id_selected,v_train,ind_train,ID,T);
     
     [x,fval,exitflag,output] = fminunc(f,x0,options);
@@ -33,7 +34,7 @@ while 1/t >= tol
     
     t = mu * t
     
-    ii = ii+1;
+
 end
 toc
 

@@ -3,9 +3,11 @@ generate_training_data;
 velocity_ID_R;
 
 beta = 1;
+tt = 1;
 
-for sigma_w = 0:1000:10000
-    for sigma_d = 0:1000:100000
+tic
+for sigma_w = 5e4
+    for sigma_d = 5000:1000:500000
         x = [sigma_w,sigma_d,beta];
         
         E = zeros(1,T);
@@ -114,7 +116,9 @@ for sigma_w = 0:1000:10000
         
         % F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(1000 - x(2)) - log(1000 - x(1))
         
-        
-        Energy_plot(sigma_d/1000+1,sigma_w/1000+1) = sum(E);
+        Energy_plot(tt) = sum(E);
+        tt = tt+1;
+%         Energy_plot(sigma_d/1000+1,sigma_w/1000+1) = sum(E);
     end
 end
+toc

@@ -110,7 +110,7 @@ for kk = 1:(T-1)
     
 end
 
-% F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(1000 - x(2)) - log(1000 - x(1)) - log(20 - x(3));
-F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(x(3)) - log(2000 - x(1)) - log(1000 - x(2)) - log(3 - x(3));
+F = t*sum(E) - log(x(2)-4.149) - log(x(1)) - log(x(3));
+% F = sum(E);
 
 end
